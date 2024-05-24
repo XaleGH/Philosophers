@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:59:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/05/21 17:12:09 by asaux            ###   ########.fr       */
+/*   Updated: 2024/05/22 18:37:12 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_thread
 
 typedef struct s_philo
 {
-	t_thread	thread;
+	t_thread	*thread;
 	t_arg		arg;
 }	t_philo;
 
@@ -69,4 +69,4 @@ int		parse_arg(int ac, char **av, t_philo *philo);
 
 #endif
 
-https://github.com/iciamyplant
+//https://github.com/iciamyplant

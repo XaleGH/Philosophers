@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:18:36 by asaux             #+#    #+#             */
-/*   Updated: 2024/05/21 17:00:54 by asaux            ###   ########.fr       */
+/*   Updated: 2024/05/24 15:20:57 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	numeric(char **av)
 
 int	parse_arg(int ac, char **av, t_philo *philo)
 {
-	if (ac == 5 || ac == 6 && numeric(av))
+	if ((ac == 5 || ac == 6) && numeric(av))
 	{
 		philo->arg.total = ft_atoi(av[1]);
 		philo->arg.die = ft_atoi(av[2]);
@@ -57,6 +57,8 @@ int	main(int ac, char **av)
 	t_philo	philo;
 
 	if (!(parse_arg(ac, av, &philo)))
-		return (ft_error("Invalid Arguments"));
+		return (ft_error("Invalid Arguments\n"));
 	philo.thread = malloc(sizeof(t_thread) * philo.arg.total);
+	if (!philo.thread)
+		return (ft_error("Error with malloc\n"));
 }
