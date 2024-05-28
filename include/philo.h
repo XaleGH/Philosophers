@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:59:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/05/22 18:37:12 by asaux            ###   ########.fr       */
+/*   Updated: 2024/05/28 15:53:46 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,24 @@
 
 typedef struct s_arg
 {
-	int			total;
-	int			die;
-	int			eat;
-	int			sleep;
-	int			m_eat;
+	int						total;
+	int						die;
+	int						eat;
+	int						sleep;
+	int						m_eat;
+	long int				start_t;
+	pthread_mutex_t			write_mutex;
+	pthread_mutex_t			dead;
+	pthread_mutex_t			time_eat;
+	pthread_mutex_t			finish;
+	int						nb_p_finish;
+	int						stop;
 }	t_arg;
 
 typedef struct s_thread
 {
-	int				id;
-	pthread_t		thread_id;
+	int						id;
+	pthread_t				thread_id;
 	pthread_t				thread_death_id;
 	pthread_mutex_t			*r_f;
 	pthread_mutex_t			l_f;
