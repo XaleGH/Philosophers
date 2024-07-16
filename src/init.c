@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:51:51 by asaux             #+#    #+#             */
-/*   Updated: 2024/05/28 17:59:28 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/16 15:51:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	initialize(t_philo *philo)
 		philo->thread[i].nb_eat = 0;
 		philo->thread[i].finish = 0;
 		philo->thread[i].r_f = NULL;
-
-
-
-
-
-
-
-
-		
+		pthread_mutex_init(&philo->thread->l_f, NULL);
+		if (philo->arg.total == 1)
+			return (1);
+		if (i == philo->arg.total - 1)
+			philo->thread[i].r_f = &philo->thread[0].l_f;
+		else
+			philo->thread[i].r_f = &philo->thread[i + 1].l_f;
+		i++;
 	}
+	return (1);
 }

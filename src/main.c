@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:18:36 by asaux             #+#    #+#             */
-/*   Updated: 2024/05/24 15:20:57 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/16 15:54:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,10 @@ int	main(int ac, char **av)
 	philo.thread = malloc(sizeof(t_thread) * philo.arg.total);
 	if (!philo.thread)
 		return (ft_error("Error with malloc\n"));
+	if (!initialize(&philo) || !threading(&philo))
+	{
+		free(philo.thread);
+		return (0);
+	}
+	stop(&philo);
 }
