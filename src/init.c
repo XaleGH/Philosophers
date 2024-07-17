@@ -3,14 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:51:51 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/16 15:51:06 by root             ###   ########.fr       */
+/*   Updated: 2024/07/17 18:22:00 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	numeric(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 1;
+	while (av[j])
+	{
+		while (av[j][i])
+		{
+			if (av[j][i] < '0' || av[j][i] > '9' || ft_strlen(av[j]) > 10)
+				return (0);
+			i++;
+		}
+		i = 0;
+		j++;
+	}
+	return (1);
+}
+
+int	parse_arg(int ac, char **av, t_philo *philo)
+{
+	if ((ac == 5 || ac == 6) && numeric(av))
+	{
+		philo->arg.total = ft_atoi(av[1]);
+		philo->arg.die = ft_atoi(av[2]);
+		philo->arg.eat = ft_atoi(av[3]);
+		philo->arg.sleep = ft_atoi(av[4]);
+		philo->arg.m_eat = -1;
+		if (ac == 6)
+			philo->arg.m_eat = ft_atoi(av[5]);
+		if (philo->arg.total <= 0 || philo->arg.die <= 0
+			|| philo->arg.eat <= 0 || philo->arg.sleep <= 0)
+			return (0);
+		return (1);
+	}
+	return (0);
+}
 
 void	init_mutex(t_philo *philo)
 {

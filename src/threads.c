@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:54:59 by root              #+#    #+#             */
-/*   Updated: 2024/07/16 17:55:40 by root             ###   ########.fr       */
+/*   Updated: 2024/07/17 18:12:35 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	*is_dead(void *data)
 {
 	t_thread	*ph;
 	
+	ph = (t_thread *)data;
 	ft_usleep(ph->pa->die + 1);
 	pthread_mutex_lock(&ph->pa->time_eat);
 	pthread_mutex_lock(&ph->pa->finish);
