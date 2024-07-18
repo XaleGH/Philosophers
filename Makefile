@@ -2,7 +2,7 @@ NAME = philo
 DIR_OBJ = obj/
 DIR_SRC = src/
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -g -ggdb
+CFLAGS = -Wall -Wextra -Werror -g -ggdb -pthread
 RM = rm -rf
 
 SRCS = $(wildcard $(DIR_SRC)*.c)
@@ -26,10 +26,3 @@ fclean: clean
 		$(RM) $(NAME)
 
 re: fclean all 
-
-
-		@echo "   ___  __   _ __   "
-		@echo "  | _ || |  (_) |__ "
-		@echo " | ___\ _ || | | _ |"
-		@echo "|_|  |_||_|_|_||___|"
-		@echo "                    "

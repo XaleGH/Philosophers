@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:44:51 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/17 18:12:48 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/18 14:52:00 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ long int	actual_time()
 	time = 0;
 	if (gettimeofday(&current_time, NULL) == -1)
 		ft_exit("Wrong time of day\n");
-	time = ((current_time.tv_sec / 1000) + (current_time.tv_usec / 1000));
+	time = ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 	return (time);
 }
 
