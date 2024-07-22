@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:54:59 by root              #+#    #+#             */
-/*   Updated: 2024/07/17 18:12:35 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/22 18:32:21 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,26 @@
 void	*is_dead(void *data)
 {
 	t_thread	*ph;
-	
+
 	ph = (t_thread *)data;
-	ft_usleep(ph->pa->die + 1);
-	pthread_mutex_lock(&ph->pa->time_eat);
-	pthread_mutex_lock(&ph->pa->finish);
-	if (!check_death(ph, 0) && !ph->finish && ((actual_time() - ph->ms_eat) >= (long)(ph->pa->die)))
+	while (!check_death(ph, 0))
 	{
-		pthread_mutex_unlock(&ph->pa->time_eat);
+		ft_usleep(ph->pa->die + 1);
+		pthread_mutex_lock(&ph->pa->time_eat);
+		pthread_mutex_lock(&ph->pa->finish);
+		if (!check_death(ph, 0) && !ph->finish
+			&& ((actual_time() - ph->ms_eat) >= (long)(ph->pa->die)))
+		{
+			pthread_mutex_unlock(&ph->pa->finish);
+			pthread_mutex_unlock(&ph->pa->time_eat);
+			pthread_mutex_lock(&ph->pa->write_mutex);
+			write_status("died\n", ph);
+			pthread_mutex_unlock(&ph->pa->write_mutex);
+			check_death(ph, 1);
+		}
 		pthread_mutex_unlock(&ph->pa->finish);
-		pthread_mutex_lock(&ph->pa->write_mutex);
-		write_status("died\n", ph);
-		pthread_mutex_unlock(&ph->pa->write_mutex);
-		check_death(ph, 1);
+		pthread_mutex_unlock(&ph->pa->time_eat);
 	}
-	pthread_mutex_unlock(&ph->pa->time_eat);
-	pthread_mutex_unlock(&ph->pa->finish);
 	return (NULL);
 }
 
@@ -43,9 +47,9 @@ void	*thread(void *data)
 		ft_usleep(ph->pa->eat / 10);
 	while (!check_death(ph, 0))
 	{
-		pthread_create(&ph->thread_death_id, NULL, is_dead, data);
+		//pthread_create(&ph->thread_death_id, NULL, is_dead, data);
 		activity(ph);
-		pthread_detach(ph->thread_death_id);
+		//pthread_detach(ph->thread_death_id);
 		if ((int)++ph->nb_eat == ph->pa->m_eat)
 		{
 			pthread_mutex_lock(&ph->pa->finish);
@@ -71,9 +75,11 @@ int	threading(t_philo *philo)
 	while (i < philo->arg.total)
 	{
 		philo->thread[i].pa = &philo->arg;
-		if (pthread_create(&philo->thread[i].thread_id, NULL, thread, &philo->thread[i]) != 0)
+		if (pthread_create(&philo->thread[i].thread_id,
+				NULL, thread, &philo->thread[i]) != 0)
 			return (ft_exit("Pthread did not return 0\n"));
 		i++;
 	}
+	pthread_create(&philo->thread[i].thread_death_id, NULL, is_dead, &philo->thread[i]);
 	return (1);
 }

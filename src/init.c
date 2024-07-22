@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:51:51 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/17 18:22:00 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/22 16:36:53 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,22 @@ void	init_mutex(t_philo *philo)
 	pthread_mutex_init(&philo->arg.finish, NULL);
 }
 
+void	cleanup(t_philo *philo)
+{
+	int i;
+
+	if (philo->thread)
+	{
+		i = -1;
+		while (++i < philo->arg.total)
+			pthread_mutex_destroy(&philo->thread[i].l_f);
+	}
+	pthread_mutex_destroy(&philo->arg.write_mutex);
+	pthread_mutex_destroy(&philo->arg.dead);
+	pthread_mutex_destroy(&philo->arg.time_eat);
+	pthread_mutex_destroy(&philo->arg.finish);
+}
+
 int	initialize(t_philo *philo)
 {
 	int	i;
@@ -76,7 +92,7 @@ int	initialize(t_philo *philo)
 		philo->thread[i].nb_eat = 0;
 		philo->thread[i].finish = 0;
 		philo->thread[i].r_f = NULL;
-		pthread_mutex_init(&philo->thread->l_f, NULL);
+		pthread_mutex_init(&philo->thread[i].l_f, NULL);
 		if (philo->arg.total == 1)
 			return (1);
 		if (i == philo->arg.total - 1)

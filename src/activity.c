@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:35:32 by root              #+#    #+#             */
-/*   Updated: 2024/07/17 18:09:01 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/22 15:28:33 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ void	activity(t_thread *ph)
 	pthread_mutex_unlock(&ph->pa->write_mutex);
 	pthread_mutex_lock(&ph->pa->write_mutex);
 	write_status("is eating\n", ph);
+	pthread_mutex_unlock(&ph->pa->write_mutex);
 	pthread_mutex_lock(&ph->pa->time_eat);
 	ph->ms_eat = actual_time();
 	pthread_mutex_unlock(&ph->pa->time_eat);
-	pthread_mutex_unlock(&ph->pa->write_mutex);
 	ft_usleep(ph->pa->eat);
 	pthread_mutex_unlock(ph->r_f);
 	pthread_mutex_unlock(&ph->l_f);
 	sleep_think(ph);
 }
+
+

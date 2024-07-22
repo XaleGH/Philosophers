@@ -6,12 +6,12 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:59:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/17 18:07:31 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/22 16:35:59 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO
-# define PHILO
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -71,6 +71,7 @@ int			main(int ac, char **av);
 int			numeric(char **av);
 int			parse_arg(int ac, char **av, t_philo *philo);
 void		init_mutex(t_philo *philo);
+void		cleanup(t_philo *philo);
 int			initialize(t_philo *philo);
 
 //activity.c
@@ -84,7 +85,7 @@ void		*thread(void *data);
 int			threading(t_philo *philo);
 
 //time.c
-long int	actual_time();
+long int	actual_time(void);
 void		ft_usleep(long int time_in_ms);
 
 #endif

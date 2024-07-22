@@ -6,13 +6,13 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:44:51 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/18 14:52:00 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/22 16:37:23 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-long int	actual_time()
+long int	actual_time(void)
 {
 	long int		time;
 	struct timeval	current_time;
@@ -27,7 +27,7 @@ long int	actual_time()
 void	ft_usleep(long int time_in_ms)
 {
 	long int	start_time;
-	
+
 	start_time = 0;
 	start_time = actual_time();
 	while ((actual_time() - start_time) < time_in_ms)
