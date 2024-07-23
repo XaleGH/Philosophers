@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:59:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/23 15:47:28 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/23 21:44:20 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int			initialize(t_philo *philo);
 void		write_status(char *str, t_thread *ph);
 void		sleep_think(t_thread *ph);
 void		activity(t_thread *ph);
+void		put_forks(t_thread *data);
+void		take_forks(t_thread *data);
 
 //threads.c
 void		*is_dead(void *data);
@@ -88,7 +90,5 @@ int			threading(t_philo *philo);
 long int	actual_time(void);
 void		ft_usleep(long int time_in_ms);
 
-void put_forks(t_thread *data);
-void take_forks(t_thread *data);
 
 #endif
