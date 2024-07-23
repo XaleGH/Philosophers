@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:54:59 by root              #+#    #+#             */
-/*   Updated: 2024/07/23 17:15:23 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/23 20:13:01 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	*thread(void *data)
 	while (!check_death(ph, 0))
 	{
 		activity(ph);
-		if (!((int)++ph->nb_eat == ph->pa->m_eat))
-			sleep_think(ph);
 		if ((int)++ph->nb_eat == ph->pa->m_eat)
 		{
 			pthread_mutex_lock(&ph->pa->finish);
@@ -62,8 +60,9 @@ void	*thread(void *data)
 				return (NULL);
 			}
 			pthread_mutex_unlock(&ph->pa->finish);
-			return (NULL);
+			return (NULL);	
 		}
+		sleep_think(ph);
 	}
 	return (NULL);
 }
