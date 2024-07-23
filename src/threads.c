@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:54:59 by root              #+#    #+#             */
-/*   Updated: 2024/07/22 18:32:21 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/23 17:15:23 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	*thread(void *data)
 		ft_usleep(ph->pa->eat / 10);
 	while (!check_death(ph, 0))
 	{
-		//pthread_create(&ph->thread_death_id, NULL, is_dead, data);
 		activity(ph);
-		//pthread_detach(ph->thread_death_id);
+		if (!((int)++ph->nb_eat == ph->pa->m_eat))
+			sleep_think(ph);
 		if ((int)++ph->nb_eat == ph->pa->m_eat)
 		{
 			pthread_mutex_lock(&ph->pa->finish);
@@ -59,6 +59,7 @@ void	*thread(void *data)
 			{
 				pthread_mutex_unlock(&ph->pa->finish);
 				check_death(ph, 2);
+				return (NULL);
 			}
 			pthread_mutex_unlock(&ph->pa->finish);
 			return (NULL);
@@ -75,11 +76,12 @@ int	threading(t_philo *philo)
 	while (i < philo->arg.total)
 	{
 		philo->thread[i].pa = &philo->arg;
+		if (i == 0)
+			pthread_create(&philo->thread[i].thread_death_id, NULL, is_dead, &philo->thread[i]);
 		if (pthread_create(&philo->thread[i].thread_id,
 				NULL, thread, &philo->thread[i]) != 0)
 			return (ft_exit("Pthread did not return 0\n"));
 		i++;
 	}
-	pthread_create(&philo->thread[i].thread_death_id, NULL, is_dead, &philo->thread[i]);
 	return (1);
 }

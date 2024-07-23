@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:35:32 by root              #+#    #+#             */
-/*   Updated: 2024/07/22 15:28:33 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/23 17:12:04 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ void	sleep_think(t_thread *ph)
 
 void	activity(t_thread *ph)
 {
-	pthread_mutex_lock(&ph->l_f);
-	pthread_mutex_lock(&ph->pa->write_mutex);
-	write_status("has taken a fork\n", ph);
-	pthread_mutex_unlock(&ph->pa->write_mutex);
 	if (!ph->r_f)
 	{
 		ft_usleep(ph->pa->die * 2);
 		return ;
 	}
-	pthread_mutex_lock(ph->r_f);
+	take_forks(ph);
+	//pthread_mutex_lock(&ph->l_f);
+	pthread_mutex_lock(&ph->pa->write_mutex);
+	write_status("has taken a fork\n", ph);
+	pthread_mutex_unlock(&ph->pa->write_mutex);
+	//pthread_mutex_lock(ph->r_f);
 	pthread_mutex_lock(&ph->pa->write_mutex);
 	write_status("has taken a fork\n", ph);
 	pthread_mutex_unlock(&ph->pa->write_mutex);
@@ -58,9 +59,36 @@ void	activity(t_thread *ph)
 	ph->ms_eat = actual_time();
 	pthread_mutex_unlock(&ph->pa->time_eat);
 	ft_usleep(ph->pa->eat);
-	pthread_mutex_unlock(ph->r_f);
-	pthread_mutex_unlock(&ph->l_f);
-	sleep_think(ph);
+	put_forks(ph);
+	//pthread_mutex_unlock(ph->r_f);
+	//pthread_mutex_unlock(&ph->l_f);
+	//sleep_think(ph);
 }
 
+void take_forks(t_thread *data)
+{
+	if (data->id % 2 == 0)
+	{
+		pthread_mutex_lock(&data->l_f);
+		pthread_mutex_lock(data->r_f);
+	}
+	else
+	{
+		pthread_mutex_lock(data->r_f);
+		pthread_mutex_lock(&data->l_f);
+	}
+}
 
+void put_forks(t_thread *data)
+{
+	if (data->id % 2 == 0)
+	{
+		pthread_mutex_unlock(&data->l_f);
+		pthread_mutex_unlock(data->r_f);
+	}
+	else
+	{
+		pthread_mutex_unlock(data->r_f);
+		pthread_mutex_unlock(&data->l_f);
+	}
+}

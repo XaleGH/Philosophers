@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:18:36 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/22 18:33:21 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/23 14:06:29 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ void	stop(t_philo *p)
 		ft_usleep(1);
 	while (++i < p->arg.total)
 	{
+		if (i == 0)
+			pthread_join(p->thread[i].thread_death_id, NULL);	
 		pthread_join(p->thread[i].thread_id, NULL);
 	}
-	pthread_join(p->thread[i].thread_death_id, NULL);
 	cleanup(p);
 	if (p->arg.stop == 2)
 		printf("Each philosopher ate %d time(s)\n", p->arg.m_eat);

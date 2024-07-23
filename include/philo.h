@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:59:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/22 16:35:59 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/23 15:47:28 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,8 @@ int			threading(t_philo *philo);
 //time.c
 long int	actual_time(void);
 void		ft_usleep(long int time_in_ms);
+
+void put_forks(t_thread *data);
+void take_forks(t_thread *data);
 
 #endif
