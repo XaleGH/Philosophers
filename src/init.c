@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:51:51 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/22 16:36:53 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/24 10:39:59 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	init_mutex(t_philo *philo)
 
 void	cleanup(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	if (philo->thread)
 	{

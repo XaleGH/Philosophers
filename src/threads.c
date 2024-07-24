@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:54:59 by root              #+#    #+#             */
-/*   Updated: 2024/07/23 20:13:01 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/24 11:45:02 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	*is_dead(void *data)
 			write_status("died\n", ph);
 			pthread_mutex_unlock(&ph->pa->write_mutex);
 			check_death(ph, 1);
+			return (NULL);
 		}
 		pthread_mutex_unlock(&ph->pa->finish);
 		pthread_mutex_unlock(&ph->pa->time_eat);
@@ -60,7 +61,7 @@ void	*thread(void *data)
 				return (NULL);
 			}
 			pthread_mutex_unlock(&ph->pa->finish);
-			return (NULL);	
+			return (NULL);
 		}
 		sleep_think(ph);
 	}
@@ -76,7 +77,8 @@ int	threading(t_philo *philo)
 	{
 		philo->thread[i].pa = &philo->arg;
 		if (i == 0)
-			pthread_create(&philo->thread[i].thread_death_id, NULL, is_dead, &philo->thread[i]);
+			pthread_create(&philo->thread[i].thread_death_id,
+				NULL, is_dead, &philo->thread[i]);
 		if (pthread_create(&philo->thread[i].thread_id,
 				NULL, thread, &philo->thread[i]) != 0)
 			return (ft_exit("Pthread did not return 0\n"));

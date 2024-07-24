@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:59:01 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/23 21:44:20 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/24 10:39:29 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,5 @@ int			threading(t_philo *philo);
 //time.c
 long int	actual_time(void);
 void		ft_usleep(long int time_in_ms);
-
 
 #endif

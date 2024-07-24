@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:35:32 by root              #+#    #+#             */
-/*   Updated: 2024/07/23 20:27:59 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/24 10:40:53 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	activity(t_thread *ph)
 	put_forks(ph);
 }
 
-void take_forks(t_thread *ph)
+void	take_forks(t_thread *ph)
 {
 	if (ph->id % 2 == 0)
 	{
@@ -80,7 +80,7 @@ void take_forks(t_thread *ph)
 	}
 }
 
-void put_forks(t_thread *ph)
+void	put_forks(t_thread *ph)
 {
 	if (ph->id % 2 == 0)
 	{

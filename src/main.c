@@ -6,7 +6,7 @@
 /*   By: asaux <asaux@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:18:36 by asaux             #+#    #+#             */
-/*   Updated: 2024/07/23 14:06:29 by asaux            ###   ########.fr       */
+/*   Updated: 2024/07/24 10:40:17 by asaux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	stop(t_philo *p)
 	while (++i < p->arg.total)
 	{
 		if (i == 0)
-			pthread_join(p->thread[i].thread_death_id, NULL);	
+			pthread_join(p->thread[i].thread_death_id, NULL);
 		pthread_join(p->thread[i].thread_id, NULL);
 	}
 	cleanup(p);
